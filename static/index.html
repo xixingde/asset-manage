@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资产管理系统</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>资产管理系统</h1>
+            <p>管理您的资产数据 - 支持增加、删除、修改、查询操作</p>
+            <div class="nav-buttons">
+                <a href="/table" class="btn btn-secondary">表格视图</a>
+                <a href="/dashboard" class="btn btn-secondary">数据统计</a>
+                <a href="/docs" class="btn btn-secondary" target="_blank">API文档</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- 添加资产表单 -->
+            <section class="add-asset-section">
+                <h2>添加新资产</h2>
+                <form id="assetForm" class="asset-form">
+                    <div class="form-group">
+                        <label for="name">资产名称:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">资产类别:</label>
+                        <select id="category" name="category" required>
+                            <option value="">请选择类别</option>
+                            <option value="电子设备">电子设备</option>
+                            <option value="办公用品">办公用品</option>
+                            <option value="车辆">车辆</option>
+                            <option value="房产">房产</option>
+                            <option value="家具">家具</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="value">资产价值 (¥):</label>
+                        <input type="number" id="value" name="value" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="purchase_date">购买日期:</label>
+                        <input type="date" id="purchase_date" name="purchase_date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">描述:</label>
+                        <textarea id="description" name="description" rows="3" placeholder="可选，添加资产描述..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" id="submitBtn" class="btn btn-primary">添加资产</button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">取消编辑</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 资产列表 -->
+            <section class="assets-section">
+                <div class="section-header">
+                    <h2>资产列表</h2>
+                    <button id="refreshBtn" class="btn btn-secondary">刷新</button>
+                </div>
+                
+                <div class="search-filter">
+                    <input type="text" id="searchInput" placeholder="搜索资产名称或类别...">
+                    <select id="categoryFilter">
+                        <option value="">所有类别</option>
+                        <option value="电子设备">电子设备</option>
+                        <option value="办公用品">办公用品</option>
+                        <option value="车辆">车辆</option>
+                        <option value="房产">房产</option>
+                        <option value="家具">家具</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <div id="loading" class="loading" style="display: none;">加载中...</div>
+                <div id="error" class="error" style="display: none;"></div>
+                
+                <div class="assets-grid" id="assetsGrid">
+                    <!-- 资产卡片将在这里动态生成 -->
+                </div>
+                
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <p>暂无资产数据</p>
+                    <p>请添加您的第一个资产</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 统计信息 -->
+        <footer class="stats">
+            <div class="stat-item">
+                <span class="stat-label">总资产数量:</span>
+                <span id="totalCount" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总价值:</span>
+                <span id="totalValue" class="stat-value">¥0.00</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>确认删除</h3>
+            <p>您确定要删除这个资产吗？此操作无法撤销。</p>
+            <div class="modal-actions">
+                <button id="confirmDelete" class="btn btn-danger">确认删除</button>
+                <button id="cancelDelete" class="btn btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

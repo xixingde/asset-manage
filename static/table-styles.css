@@ -1,0 +1,515 @@
+/* 表格页面专用样式 */
+
+/* 导航按钮 */
+.nav-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-buttons a {
+    text-decoration: none;
+}
+
+/* 搜索区域样式 */
+.search-section {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+.search-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.search-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.search-group,
+.filter-group,
+.value-filter-group,
+.date-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.value-filter-group,
+.date-filter-group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-controls label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.search-controls input,
+.search-controls select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.search-controls input:focus,
+.search-controls select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.search-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* 表格区域样式 */
+.table-section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.table-header {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.table-header h2 {
+    color: #333;
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.table-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.table-info span {
+    color: #666;
+    font-weight: 500;
+}
+
+.view-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.view-options label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.view-options select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* 表格容器和表格样式 */
+.table-container {
+    overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.assets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.assets-table th,
+.assets-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.assets-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.assets-table td {
+    vertical-align: middle;
+}
+
+/* 可排序列样式 */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.sortable:hover {
+    background-color: #e9ecef;
+}
+
+.sort-indicator {
+    display: inline-block;
+    margin-left: 5px;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    vertical-align: middle;
+}
+
+.sort-indicator.asc {
+    border-bottom-color: #667eea;
+    border-top: none;
+}
+
+.sort-indicator.desc {
+    border-top-color: #667eea;
+    border-bottom: none;
+}
+
+/* 表格行样式 */
+.assets-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.assets-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.assets-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.assets-table tbody tr:nth-child(even):hover {
+    background-color: #f0f0f0;
+}
+
+/* 操作列样式 */
+.actions-column {
+    width: 120px;
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.btn-edit-small {
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-edit-small:hover {
+    background: #218838;
+}
+
+.btn-delete-small {
+    background: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-delete-small:hover {
+    background: #c82333;
+}
+
+/* 价值列样式 */
+.value-cell {
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* 类别标签样式 */
+.category-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+}
+
+.category-tag.电子设备 { background: #007bff; }
+.category-tag.办公用品 { background: #6f42c1; }
+.category-tag.车辆 { background: #dc3545; }
+.category-tag.房产 { background: #fd7e14; }
+.category-tag.家具 { background: #20c997; }
+.category-tag.其他 { background: #6c757d; }
+
+/* 分页样式 */
+.pagination {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.page-info {
+    color: #666;
+    font-weight: 500;
+}
+
+/* 统计信息样式 */
+.stats-section {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .stat-label {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.stat-card .stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* 模态框样式增强 */
+.large-modal {
+    max-width: 600px;
+    width: 95%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.edit-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.edit-form label {
+    font-weight: 600;
+    color: #555;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .table-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .table-info {
+        justify-content: space-between;
+    }
+    
+    .search-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-actions {
+        justify-content: center;
+    }
+    
+    .assets-table th,
+    .assets-table td {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-buttons {
+        flex-direction: column;
+    }
+}
+
+/* 加载和空状态样式 */
+.table-section .loading {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.table-section .empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: #666;
+}
+
+.table-section .empty-state p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.table-section .empty-state a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.table-section .empty-state a:hover {
+    text-decoration: underline;
+}
+
+/* 描述列样式 */
+.description-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.description-cell:hover {
+    white-space: normal;
+    word-wrap: break-word;
+}

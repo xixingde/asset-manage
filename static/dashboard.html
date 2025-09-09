@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计面板 - 资产管理系统</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/dashboard-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>数据统计面板</h1>
+            <p>资产数据可视化分析 - 全面掌握资产状况</p>
+            <div class="nav-buttons">
+                <a href="/" class="btn btn-secondary">卡片视图</a>
+                <a href="/table" class="btn btn-secondary">表格视图</a>
+                <a href="/docs" class="btn btn-secondary" target="_blank">API文档</a>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <!-- 核心指标卡片 -->
+            <section class="metrics-section">
+                <h2>核心指标</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card primary">
+                        <div class="metric-icon">📊</div>
+                        <div class="metric-content">
+                            <div class="metric-label">总资产数量</div>
+                            <div id="totalAssets" class="metric-value">0</div>
+                            <div class="metric-change positive">
+                                <span id="assetGrowth">+0%</span> 较上月
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card success">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-content">
+                            <div class="metric-label">总资产价值</div>
+                            <div id="totalValue" class="metric-value">¥0</div>
+                            <div class="metric-change positive">
+                                <span id="valueGrowth">+0%</span> 较上月
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card warning">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-content">
+                            <div class="metric-label">平均资产价值</div>
+                            <div id="avgValue" class="metric-value">¥0</div>
+                            <div class="metric-change">
+                                <span id="avgChange">0%</span> 较上月
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card info">
+                        <div class="metric-icon">🏆</div>
+                        <div class="metric-content">
+                            <div class="metric-label">最高价值资产</div>
+                            <div id="maxValue" class="metric-value">¥0</div>
+                            <div class="metric-change">
+                                <span id="maxAssetName">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 资产类别分析 -->
+            <section class="category-section">
+                <h2>资产类别分析</h2>
+                <div class="analysis-grid">
+                    <div class="chart-panel">
+                        <div class="panel-header">
+                            <h3>类别分布</h3>
+                            <div class="panel-actions">
+                                <select id="chartType">
+                                    <option value="pie">饼图</option>
+                                    <option value="doughnut">环形图</option>
+                                    <option value="bar">柱状图</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="category-stats">
+                        <h3>类别详情</h3>
+                        <div id="categoryDetails" class="category-list">
+                            <!-- 类别统计项将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 价值分析 -->
+            <section class="value-section">
+                <h2>价值分析</h2>
+                <div class="analysis-grid">
+                    <div class="chart-panel">
+                        <div class="panel-header">
+                            <h3>价值分布</h3>
+                            <div class="panel-actions">
+                                <button id="valueRangeBtn" class="btn btn-small">价值区间</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="valueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="value-stats">
+                        <h3>价值统计</h3>
+                        <div class="stats-list">
+                            <div class="stat-item">
+                                <span class="stat-label">价值中位数</span>
+                                <span id="medianValue" class="stat-value">¥0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">价值标准差</span>
+                                <span id="stdValue" class="stat-value">¥0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">低价值资产 (<¥1000)</span>
+                                <span id="lowValueCount" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">中价值资产 (¥1000-¥10000)</span>
+                                <span id="midValueCount" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">高价值资产 (>¥10000)</span>
+                                <span id="highValueCount" class="stat-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 时间趋势分析 -->
+            <section class="timeline-section">
+                <h2>采购时间分析</h2>
+                <div class="analysis-grid full-width">
+                    <div class="chart-panel">
+                        <div class="panel-header">
+                            <h3>采购时间趋势</h3>
+                            <div class="panel-actions">
+                                <select id="timeRange">
+                                    <option value="year">按年</option>
+                                    <option value="month">按月</option>
+                                    <option value="quarter">按季度</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 资产状态面板 -->
+            <section class="status-section">
+                <h2>资产状态面板</h2>
+                <div class="status-grid">
+                    <div class="status-panel new">
+                        <div class="status-header">
+                            <div class="status-icon">🆕</div>
+                            <h3>新增资产</h3>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-count" id="newAssetsCount">0</div>
+                            <div class="status-desc">最近30天新增</div>
+                            <div class="status-list" id="newAssetsList">
+                                <!-- 新增资产列表 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-panel active">
+                        <div class="status-header">
+                            <div class="status-icon">✅</div>
+                            <h3>活跃资产</h3>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-count" id="activeAssetsCount">0</div>
+                            <div class="status-desc">正常使用中</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="activeProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-panel aging">
+                        <div class="status-header">
+                            <div class="status-icon">⏰</div>
+                            <h3>老化资产</h3>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-count" id="agingAssetsCount">0</div>
+                            <div class="status-desc">使用超过3年</div>
+                            <div class="aging-list" id="agingAssetsList">
+                                <!-- 老化资产列表 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-panel valuable">
+                        <div class="status-header">
+                            <div class="status-icon">💎</div>
+                            <h3>高价值资产</h3>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-count" id="valuableAssetsCount">0</div>
+                            <div class="status-desc">价值超过¥10000</div>
+                            <div class="valuable-list" id="valuableAssetsList">
+                                <!-- 高价值资产列表 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 快速操作面板 -->
+            <section class="quick-actions">
+                <h2>快速操作</h2>
+                <div class="actions-grid">
+                    <a href="/" class="action-card">
+                        <div class="action-icon">➕</div>
+                        <div class="action-title">添加资产</div>
+                        <div class="action-desc">快速添加新资产</div>
+                    </a>
+
+                    <a href="/table" class="action-card">
+                        <div class="action-icon">📋</div>
+                        <div class="action-title">管理资产</div>
+                        <div class="action-desc">编辑和管理现有资产</div>
+                    </a>
+
+                    <button id="exportReport" class="action-card clickable">
+                        <div class="action-icon">📊</div>
+                        <div class="action-title">生成报告</div>
+                        <div class="action-desc">导出详细分析报告</div>
+                    </button>
+
+                    <button id="refreshData" class="action-card clickable">
+                        <div class="action-icon">🔄</div>
+                        <div class="action-title">刷新数据</div>
+                        <div class="action-desc">重新加载最新数据</div>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- 加载状态 -->
+        <div id="loading" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">正在加载数据...</div>
+        </div>
+    </div>
+
+    <script src="/static/dashboard-script.js"></script>
+</body>
+</html>
